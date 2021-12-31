@@ -9,3 +9,11 @@
     - `chmod 775 x86_64 logs`
     - `chmod 664 x86_64/* logs/*`
 - If builders can't execute `chaotic dbb` and adding to database fails due to this, symlink `/usr/local/bin/chaotic` to `/usr/bin/chaotic`
+
+## Deploying new mirrorlist or keyring
+
+```
+cd /srv/http/repos/chaotic-aur
+sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst chaotic-mirrorlist.pkg.tar.zst
+sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mirrorlist.pkg.tar.zst.sig
+```
