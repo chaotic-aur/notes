@@ -29,7 +29,7 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 ## Our interfere repo
 
 - Used to fix up AUR packages or PKGBUILDs which we don't control ourselves
-- Every folder represents a package. To fix a package with `pkgname=somepackage` the folder would be somepackage
+- Every folder represents a package. To fix a package with `pkgname=somepackage` the folder would be `somepackage`
 - Several possibilities to proceed exist:
     - `PKGBUILD.append`: everything in there is going to be the updated content of the original PKGBUILD. Fixing `build()` as is easy as adding the fixed `build()` into this file. This can be used for all kinds of fixes. If something needs to be added to an array, this is as easy as `makedepends+=somepackage`
     - `interfere.patch`: a patch file which can be used to fix either multiple files or PKGBUILD if a lot of changes are required. All changes need to be added in this file.
@@ -37,15 +37,33 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 
 ## Handling the toolbox:
 
-- The toolbox repo contains good instructions concerning CLI usage
+- The toolbox repo contains [good instructions](https://github.com/chaotic-aur/toolbox#cli) concerning CLI usage
 - Usual workflow could look like this:
+    - Building or updating an AUR package:
+      - `chaotic get somepackage`
+      - `chaotic mkd somepackage`
     - Rebuilding an AUR `-git` package:
       - `chaotic rm somepackage-git`
       - `chaotic get somepackage-git`
       - `chaotic mkd somepackage-git`
-    - Updating a non-AUR package:
+    - Updating or building a non-AUR package:
       - `git clone someurl.git`
       - `chaotic mkd justclonedfolder`
-    - Cleaning sources of a package when a package expects a different one
+    - Cleaning sources of a package when a package expects a different one (useful when source changed)
       - `chaotic cls somepackage`
+    - Updating the local interfere repo to build a package using the fix:
+      - `chaotic si`
+- The always latest logfile of builds can be found at the [log directory](https://builds.garudalinux.org/repos/chaotic-aur/logs/) of our main nodes URL. Here, every logfile gets uploaded no matter if successful or failed.
 
+## Some examples on how to handle stuff:
+
+- A package didn't build:
+  - Check the [logfiles](https://builds.garudalinux.org/repos/chaotic-aur/logs/) - a dependency is missing
+  - Add the dependency via interfere using PKGBUILD.append: `makedepends+=(missingdep)`
+  - Connect to a builder and update the interfere repo: `chaotic si`
+  - Build the package: `chaotic get somepackage && chaotic mkd somepackage`
+  - (optional, but very recommended: report the missing dependency at the corresponding AUR page!)
+- A package depends on an old shared library:
+  - Either depend on reported issues or verify its an issue by installing the package locally
+  - Remove it from the repo in order to start a rebuild: `chaotic rm somepackage`
+  - Build the package using the updated shared library: `chaotic get somepackage && chaotic mkd somepackage`
