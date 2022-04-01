@@ -25,6 +25,23 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 - Stable packages are only downloaded if an update is detected, `-git` ones are always downloaded but only built if its version changed (down/upgrade doesn't matter)
 - AUR packages just need their pkgname added
 - Non-AUR packages are added as follows: `pkgname:https://some.url.git` (this can also be used to force the download of a package that never changes version but is still updated, eg. a package building from git but incorrectly not having the `-git` suffix
+- Where to place newly added packages? 
+  - General rule of thumb: `-bin` and all other, quick to build packages belong into `hourly` routines. Likewise, heavy packages belong into `daily`.
+  - New, quick to build packages can always be added to `ufscar-hpc` - it is a big cluster with a lot of processing power. Balancing packages between `hourly.1` and `hourly.2` routines is a good idea.
+  - The heaviest packages are built by `ufscar-hpc`, eg. `ungoogled-chromium`
+  - The `garuda-cluster` handles packages of the Garuda team, therefore it is managed by Garuda staff only. 
+  - The `dragon-cluster` is handled by @dr460nf1r3, most of the packages here are used by him. Since lately, also requested, heavier packages like kernels can be added to the `afternoon` routine. 
+  - The `CatBuilder` is @Edu4rdSHL PC, therefore he is the only one managing the package list. TKG Kernels are also managed by him.
+- Since its best to keep good track of where packages came from, the established way of formatting the package list:
+  - For requested packages we want to mention the issue followed by the requested package (and eventually its deps to make clear, why the particular package was added as well). Leave a space between issues and sort things alphabetically.
+```
+# Issue 1337
+absolutelyrequireddependency # (dep superfancypackage)
+superfancypackage
+```
+  - Issues should also be sorted in ordner. 
+  - Staff members may add their desired packages to the `ufscar-hpc` or `dragon-cluster` routines. Take a look where other maintainers added their stuff and add it accordingly.
+  - If in doubt, the staff chat is always the best place to ask questions ;) 
 
 ## Our interfere repo
 
