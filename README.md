@@ -34,14 +34,21 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - The `CatBuilder` is @Edu4rdSHL PC, therefore he is the only one managing the package list. TKG Kernels are also managed by him.
 - Since its best to keep good track of where packages came from, the established way of formatting the package list:
   - For requested packages we want to mention the issue followed by the requested package (and eventually its deps to make clear, why the particular package was added as well). Leave a space between issues and sort things alphabetically.
-```
-# Issue 1337
-absolutelyrequireddependency # (dep superfancypackage)
-superfancypackage
-```
   - Issues should also be sorted in ordner. 
   - Staff members may add their desired packages to the `ufscar-hpc` or `dragon-cluster` routines. Take a look where other maintainers added their stuff and add it accordingly.
-  - If in doubt, the staff chat is always the best place to ask questions ;) 
+  - If in doubt, the staff chat is always the best place to ask questions 🐱 
+    ```
+    # Issue 1337
+    absolutelyrequireddependency # (dep superfancypackage)
+    superfancypackage
+
+    # Nico
+    everything-git
+    firedragon
+    octopi-git
+    sudo-git
+    ```
+
 
 ## Our interfere repo
 
