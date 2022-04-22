@@ -59,7 +59,8 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - `PKGBUILD.append`: everything in there is going to be the updated content of the original PKGBUILD. Fixing `build()` as is easy as adding the fixed`build()` into this file. This can be used for all kinds of fixes. If something needs to be added to an array, this is as easy as `makedepend+=somepackage`.
   - `interfere.patch`: a patch file which can be used to fix either multiple files or PKGBUILD if a lot of changes are required. All changes need to be added in this file.
   - `prepare`: A script which is being executed after the building chroot has been setup. It can be used to source envvars or modify other things before compilation starts.
-- Incrementing `pkgrel` can be done be adding a `PKGREL_BUMPS` file to the root of the repo. It responds to `pkgbase pkgver [pkgrel bump count]` syntax. Bumping will automatically stop once the package's pkgver > interfere pkgver.
+- Incrementing `pkgrel` can be done be by downloading the PKGBUILD (`chaotic get somepackage`), increasing its pkgrel temporarily (`chaotic bump somepackage`) and building it afterwards (`chaotic mkd somepackage`).
+- The `chaotic bump` command syncs the incremented pkgrel back to the interfere repo, which means it will be available for all other builders too. This can be useful for mass rebuilds as well, eg. in case of Python version updates.
 
 ## Handling the [toolbox](https://github.com/chaotic-aur/toolbox)
 
@@ -69,11 +70,11 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
     - `chaotic get somepackage`
     - `chaotic mkd somepackage`
   - Rebuilding an AUR `-git` package:
-    - `chaotic rm somepackage-git`
     - `chaotic get somepackage-git`
+    - `chaotic bump somepackage-git`
     - `chaotic mkd somepackage-git`
   - Updating or building a non-AUR package:
-    - `git clone someurl.git`
+    - `chaotic get someurl.git`
     - `chaotic mkd justclonedfolder`
   - Cleaning sources of a package when a package expects a different one (useful when source changed):
     - `chaotic cls somepackage`
@@ -91,5 +92,6 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - (optional, but _very_ recommended: report the missing dependency at the corresponding AUR page!)
 - A package depends on an old shared library:
   - Either depend on reported issues or verify it's an issue by installing the package locally
-  - Remove it from the repo in order to start a rebuild: `chaotic rm somepackage`
-  - Build the package using the updated shared library: `chaotic get somepackage && chaotic mkd somepackage`
+  - Download the PKGBUILD of the package: `chaotic get somepackage`
+  - Bump the `pkgrel` of the package: `chaotic bump somepackage`
+  - Build the package using the updated shared library: `chaotic mkd somepackage`
