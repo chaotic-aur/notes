@@ -69,12 +69,12 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - Building or updating an AUR package:
     - `chaotic get somepackage`
     - `chaotic mkd somepackage`
-  - Rebuilding an AUR `-git` package:
-    - `chaotic get somepackage-git`
-    - `chaotic bump somepackage-git`
-    - `chaotic mkd somepackage-git`
-  - Updating or building a non-AUR package:
-    - `chaotic get someurl.git`
+  - Rebuilding an AUR package:
+    - `chaotic get somepackage`
+    - `chaotic bump somepackage`
+    - `chaotic mkd somepackage`
+  - Updating or building a non-AUR package that also isn't defined in any routine:
+    - `git clone someurl.git`
     - `chaotic mkd justclonedfolder`
   - Cleaning sources of a package when a package expects a different one (useful when source changed):
     - `chaotic cls somepackage`
