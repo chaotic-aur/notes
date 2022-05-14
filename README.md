@@ -25,6 +25,7 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 - Stable packages are only downloaded if an update is detected, `-git` ones are always downloaded but only built if its version changed (down/upgrade doesn't matter).
 - AUR packages just need their pkgname added.
 - Non-AUR packages are added as follows: `pkgname:https://some.url.git` (this can also be used to force the download of a package that never changes version but is still updated, eg. a package building from git but incorrectly not having the `-git` suffix.
+- Packages that are part of a `pkgbase` need their `pkgbase` added instead of one of their `pkgnames`. Repoctl can't handle such packages yet, therefore one needs to treat it as `-git` package. Eg.: `pkgbase:https://some.url.git`
 - Where to place newly added packages?
   - General rule of thumb: `-bin` and all other, quick to build packages belong into `hourly` routines. Likewise, heavy packages belong into `daily`.
   - New, quick to build packages can always be added to `ufscar-hpc` - it is a big cluster with a lot of processing power. Balancing packages between `hourly.1` and `hourly.2` routines is a good idea.
