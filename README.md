@@ -51,6 +51,8 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
     octopi-git
     sudo-git
     ```
+- If a package for some reason needs to be built before another one, a "barrier" can be put in place to force every makepkg before the barrier to finish before attempting to built the packages after it:
+  - A good example for this can be seen in [this commit](https://github.com/chaotic-aur/packages/commit/ec2d70379dc9848af1942e504bbe47f178f5099f)
 
 ## Our [interfere repo](https://github.com/chaotic-aur/interfere)
 
