@@ -57,11 +57,13 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 ## Our [interfere repo](https://github.com/chaotic-aur/interfere)
 
 - Used to fix up AUR packages or PKGBUILDs which we don't control ourselves.
-- Every folder represents a package. To fix a package with `pkgname=somepackage` the folder would be `somepackage`.
+- Every folder represents a package. To fix a package with `pkgname=somepackage` the folder would be `somepackage`. Likewise, several conditions can trigger actions.
 - Several possibilities to proceed exist:
-  - `PKGBUILD.append`: everything in there is going to be the updated content of the original PKGBUILD. Fixing `build()` as is easy as adding the fixed`build()` into this file. This can be used for all kinds of fixes. If something needs to be added to an array, this is as easy as `makedepend+=somepackage`.
+  - `PKGBUILD.append`: everything in there is going to be the updated content of the original PKGBUILD. Fixing `build()` as is easy as adding the fixed `build()` into this file. This can be used for all kinds of fixes. If something needs to be added to an array, this is as easy as `makedepend+=somepackage`.
   - `interfere.patch`: a patch file which can be used to fix either multiple files or PKGBUILD if a lot of changes are required. All changes need to be added in this file.
   - `prepare`: A script which is being executed after the building chroot has been setup. It can be used to source envvars or modify other things before compilation starts.
+  - `on-failure.sh`: A script which is being executed if the build fails. 
+  - `on-success.sh`: A script which is being executed if the build succeeds.
 - Incrementing `pkgrel` can be done be by downloading the PKGBUILD (`chaotic get somepackage`), increasing its pkgrel temporarily (`chaotic bump somepackage`) and building it afterwards (`chaotic mkd somepackage`).
 - The `chaotic bump` command syncs the incremented pkgrel back to the interfere repo, which means it will be available for all other builders too. This can be useful for mass rebuilds as well, eg. in case of Python version updates.
 
