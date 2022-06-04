@@ -86,6 +86,7 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - Updating the local interfere repo to build a package using the fix:
     - `chaotic si`
 - The latest logfile of builds can always be found at the [log directory](https://builds.garudalinux.org/repos/chaotic-aur/logs/) of our main nodes URL. Here, every logfile gets uploaded no matter if successful or failed.
+- Builds via `chaotic mkd` or `chaotic routine` can be parallelized by added `-j 10` before the command, eg. `chaotic -j 10 routine hourly` - this will save a lot of time especially when building a lot of `-git` packages.
 
 ## Some examples on how to handle stuff
 
