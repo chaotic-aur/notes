@@ -1,23 +1,5 @@
 # Internal documentation
 
-## Setting up the main node
-
-- UFSCar needs a `ufscar-hpc` user which needs its public key added in `authorized_keys`
-- Permissions in `srv/http/repos/chaotic-aur/` need to be set up as follows so nodes can upload their packages:
-  - `chmod g+s x86_64 logs`
-  - `chown -R :chaotic_op x86_64 logs`
-  - `chmod 775 x86_64 logs`
-  - `chmod 664 x86_64/* logs/*`
-- If builders can't execute `chaotic `dbb` and adding the packages to database fails due to this, symlink `/usr/local/bin/chaotic` to `/usr/bin/chaotic`
-
-## Deploying new mirrorlist or keyring
-
-```sh
-cd /srv/http/repos/chaotic-aur
-sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst chaotic-mirrorlist.pkg.tar.zst
-sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mirrorlist.pkg.tar.zst.sig
-```
-
 ## [The packages repo](https://github.com/chaotic-aur/packages) - containing lists of packages to be built by our builders
 
 - The individual folders represent our builders.
@@ -104,3 +86,29 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
   - Download the PKGBUILD of the package: `chaotic get somepackage`
   - Bump the `pkgrel` of the package: `chaotic bump somepackage`
   - Build the package using the updated shared library: `chaotic mkd somepackage`
+
+
+## Administration
+### Setting up the main node
+
+- UFSCar needs a `ufscar-hpc` user which needs its public key added in `authorized_keys`
+- Permissions in `srv/http/repos/chaotic-aur/` need to be set up as follows so nodes can upload their packages:
+  - `chmod g+s x86_64 logs`
+  - `chown -R :chaotic_op x86_64 logs`
+  - `chmod 775 x86_64 logs`
+  - `chmod 664 x86_64/* logs/*`
+- If builders can't execute `chaotic `dbb` and adding the packages to database fails due to this, symlink `/usr/local/bin/chaotic` to `/usr/bin/chaotic`
+
+### Deploying new mirrorlist or keyring
+
+```sh
+cd /srv/http/repos/chaotic-aur
+sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst chaotic-mirrorlist.pkg.tar.zst
+sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mirrorlist.pkg.tar.zst.sig
+```
+
+### Resetting the repo
+
+- Have repoctl's `config.toml` in `/root/.config/repoctl` 
+- `su -` to ensure settings are present
+- `repoctl reset` to create a new database with all files added
