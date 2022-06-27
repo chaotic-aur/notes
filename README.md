@@ -1,4 +1,4 @@
-# Internal documentation
+# Chaotic-AUR documentation
 
 ## [The packages repo](https://github.com/chaotic-aur/packages) - containing lists of packages to be built by our builders
 
@@ -24,12 +24,10 @@
 
     ```md
     # Issue 1337
-
     absolutelyrequireddependency # (dep superfancypackage)
     superfancypackage
 
     # Nico
-
     everything-git
     firedragon
     octopi-git
