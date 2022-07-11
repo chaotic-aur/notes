@@ -45,6 +45,7 @@
   - `PKGBUILD.append`: everything in there is going to be the updated content of the original PKGBUILD. Fixing `build()` as is easy as adding the fixed `build()` into this file. This can be used for all kinds of fixes. If something needs to be added to an array, this is as easy as `makedepend+=somepackage`.
   - `interfere.patch`: a patch file that can be used to fix either multiple files or PKGBUILD if a lot of changes are required. All changes need to be added to this file.
   - `prepare`: A script which is being executed after the building chroot has been set up. It can be used to source environment variables or modify other things before compilation starts.
+    - If somethign needs to be set up before the actual compilation process, commands can be pushed by inserting eg. `$CAUR_PUSH source /etc/profile`. Likewise, package conflicts can be solved, eg. as follows: `echo y | pacman -S nftables`
   - `on-failure.sh`: A script that is being executed if the build fails.
   - `on-success.sh`: A script that is being executed if the build succeeds.
 - Incrementing `pkgrel` can be done by downloading the PKGBUILD (`chaotic get somepackage`), increasing its pkgrel temporarily (`chaotic bump somepackage`) and building it afterward (`chaotic` mkd somepackage`).
@@ -69,7 +70,7 @@
   - Updating the local interfere repo to build a package using the fix:
     - `chaotic si`
 - The latest logfile of builds can always be found in the [log directory](https://builds.garudalinux.org/repos/chaotic-aur/logs/) of our main nodes URL. Here, every log file gets uploaded no matter if successful or failed.
-- Builds via `chaotic mkd` or `chaotic routine` can be parallelized by adding `-j` 10` before the command, eg. `chaotic -j 10 routine hourly` - this will save a lot `of time`,` especially when building` a lot of `-git` packages.
+- Builds via `chaotic mkd` or `chaotic routine` can be parallelized by adding `-j 10` before the command, eg. `chaotic -j 10 routine hourly` - this will save a lot of time, especially when building a lot of `-git` packages.
 
 ## Some examples on how to handle stuff
 
