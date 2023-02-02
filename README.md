@@ -69,6 +69,8 @@
     - `chaotic cls somepackage`
   - Updating the local interfere repo to build a package using the fix:
     - `chaotic si`
+  - Cleaning the build folder (removes successful `.log/.lock` files and build directories, keeping the failed logs):
+    - `chaotic cleanpwd`
 - The latest logfile of builds can always be found in the [log directory](https://builds.garudalinux.org/repos/chaotic-aur/logs/) of our main nodes URL. Here, every log file gets uploaded no matter if successful or failed.
 - Builds via `chaotic mkd` or `chaotic routine` can be parallelized by adding `-j 10` before the command, eg. `chaotic -j 10 routine hourly` - this will save a lot of time, especially when building a lot of `-git` packages.
 
