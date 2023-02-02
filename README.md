@@ -14,7 +14,7 @@
   - The heaviest packages are built by `ufscar-hpc`, eg. `ungoogled-chromium`
   - The `garuda-cluster` handles packages of the Garuda team, therefore it is managed by Garuda staff only.
   - The `dragon-cluster` is handled by [@dr460nf1r3](https://github.com/dr460nf1r3), most of the packages here are used by him. Lately, also requested, heavier packages like kernels can be added to the `afternoon` routine.
-  - The `dragon-cluster` also builds the complete `kde-git` stack. All things related to KDE can have their `-git`` PKGBUILDs added to the `nightly` routine.
+  - The `dragon-cluster` also builds the complete `kde-git` stack. All things related to KDE can have their `-git` PKGBUILDs added to the `nightly` routine.
   - The `CatBuilder` is [@Edu4rdSHL](https://github.com/Edu4rdSHL) PC, therefore he is the only one managing the package list. TKG Kernels are also managed by him.
 - Since its best to keep good track of where packages came from, the established way of formatting the package list:
   - For requested packages, we want to mention the issue followed by the requested package (and eventually its dependencies to make clear, why the particular package was added as well). Leave a space between issues and sort things alphabetically.
@@ -96,7 +96,7 @@
   - `chown -R :chaotic_op x86_64 logs`
   - `chmod 775 x86_64 logs`
   - `chmod 664 x86_64/* logs/*`
-- If builders can't execute `chaotic `dbb` and adding the packages to database fails due to this, symlink `/usr/local/bin/chaotic` to `/usr/bin/chaotic`
+- If builders can't execute `chaotic dbb` and adding the packages to database fails due to this, symlink `/usr/local/bin/chaotic` to `/usr/bin/chaotic`
 
 ### Deploying new mirrorlist or keyring
 
