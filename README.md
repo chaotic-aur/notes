@@ -114,3 +114,46 @@ sudo ln -sfT x86_64/chaotic-mirrorlist-20211231-1-any.pkg.tar.zst.sig chaotic-mi
 - Have repoctl's `config.toml` in `/root/.config/repoctl` 
 - `su -` to ensure settings are present
 - `repoctl reset` to create a new database with all files added
+
+### HPC node
+
+- Don't ever build stuff in the SMS node (the one you login), you can start an interactive job with this command:
+```sh
+srun --cpus-per-task=40 --time=3:00:00 --partition=fast --pty bash -i
+```
+- Don't ever build stuff in home (space is limited), you can go to a temporary path with this command:
+```sh
+cd $(mktemp -d)
+```
+- Updating the toolbox (can be done from SMS):
+```sh
+cd ~/chaotic/toolbox && git pull --ff-only
+```
+- Other stuff that can be done from SMS:
+```sh
+chaotic sd; chaotic sp; chaotic si; chaotic lowerstrap
+```
+- Reading logs:
+```sh
+myjobs
+# In myjob's output you'll see JOBIDs
+cd ~/chaotic/toolbox/slurm-jobs/ufscar-hpc/
+tail slurm-${JOBID}.out
+```
+- Moving a job to start ASAP:
+```sh
+scontrol update JobID=562597 StartTime=NOW
+```
+- Worst case-scenario, job went nuts:
+```sh
+cd ~/chaotic/toolbox/slurm-jobs/ufscar-hpc/
+scancel ${JOBID}
+rm "${JOBID}.out"
+ls -1 *.sh
+sbatch ${JOB_NAME}.sh
+```
+- In case of [ no space left in controller ], break the glass:
+```sh
+ssh ${CONTROLLER_CN}
+~/emergency-cleanup.sh
+```
